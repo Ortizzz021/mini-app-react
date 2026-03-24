@@ -48,19 +48,20 @@ export default function Countries() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {filteredCountries.map((country, index) => (
             <div key={index} className="border p-4 rounded shadow">
-              <img src={country.flags.png} alt="flag" className="w-full h-32 object-cover" />
+                <img src={country.flags.png} alt="flag" className="w-full h-32 object-cover" />
+                <h2>
+                {country.name?.common || "Sin nombre"}
+                </h2>
 
-              <h2 className="font-bold mt-2">
-                {country.name.common}
-              </h2>
+                <p>
+                Capital: {country.capital?.[0] || "N/A"}
+                </p>
 
-              <p>Capital: {country.capital?.[0]}</p>
-
-              <p>
+                <p>
                 Moneda: {country.currencies
-                  ? Object.values(country.currencies)[0].name
-                  : "N/A"}
-              </p>
+                    ? Object.values(country.currencies)[0]?.name
+                    : "N/A"}
+                </p>
             </div>
           ))}
         </div>
