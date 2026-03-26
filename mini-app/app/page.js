@@ -3,41 +3,35 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export default function Home() {
-  const mainStyle = { padding: 24 };
-  const titleStyle = { fontSize: 28, fontWeight: 700, margin: 0 };
-  const paragraphStyle = { marginTop: 12, color: "#374151", lineHeight: 1.5 };
-  const buttonStyle = {
-    marginTop: 16,
-    background: "#0f1720",
-    color: "#fff",
-    padding: "8px 14px",
-    border: "none",
-    borderRadius: 6,
-    cursor: "pointer",
-  };
-
   return (
     <div>
       <Header />
 
-      <main style={mainStyle}>
-        <h1 style={titleStyle}>GeoExplorer</h1>
+      <main className="py-8">
+        <h1 className="text-4xl font-extrabold text-slate-900">GeoExplorer</h1>
 
-        <p style={paragraphStyle}>
-          Esta aplicación permite explorar información de países del mundo de forma
-          rápida y sencilla.
+        <p className="mt-6 text-slate-700 max-w-2xl">
+          GeoExplorer es una herramienta minimalista para explorar datos clave de
+          países alrededor del mundo: banderas, capitales, monedas y ubicación geográfica (latitud y longitud).
+          Permite a estudiantes, profesores y cualquier persona interesada obtener
+          respuestas rápidas sobre países, comparar información básica y visualizar
+          coordenadas para usos educativos o de investigación.
         </p>
 
-        <p style={paragraphStyle}>
-          Problema: poco conocimiento sobre algunos países.
+        <p className="mt-4 text-slate-700 max-w-2xl">
+          Problema que resuelve: mucha información está fragmentada en múltiples
+          fuentes; GeoExplorer centraliza datos esenciales en una interfaz simple y
+          accesible, haciendo la indagación rápida y sin distracciones.
         </p>
 
-        <p style={paragraphStyle}>
+        <p className="mt-4 text-slate-700 max-w-2xl">
           Integrantes: Juan Pablo Berrío - Daniel Ortiz
         </p>
 
         <Link href="/countries">
-          <button style={buttonStyle}>Ver países</button>
+          <button className="mt-6 bg-slate-900 text-white px-4 py-2 rounded-md">
+            Ver países
+          </button>
         </Link>
       </main>
 

@@ -1,3 +1,5 @@
+import './globals.css';
+
 export const metadata = {
   title: "Country App",
   description: "Explorador de países",
@@ -6,8 +8,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body style={{ margin: 0, fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial', background: '#e6f7ff', color: '#0f1720' }}>
-        <div style={{ maxWidth: 980, margin: '0 auto', padding: 20 }}>
+      <body className="bg-sky-50 text-slate-900 antialiased">
+        <div className="max-w-4xl mx-auto p-6">
           {children}
         </div>
       </body>

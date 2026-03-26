@@ -11,68 +11,70 @@ export default function Countries() {
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all?fields=name,capital,currencies,flags,latlng")
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setCountries(data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         setLoading(false);
       });
   }, []);
 
-  const filteredCountries = countries.filter(country =>
-    country.name.common.toLowerCase().includes(search.toLowerCase())
+  const filteredCountries = countries.filter((country) =>
+    country?.name?.common?.toLowerCase().includes(search.toLowerCase())
   );
-
-  const mainStyle = { padding: 24 };
-  const titleStyle = { fontSize: 20, fontWeight: 700, marginBottom: 12 };
-  const inputStyle = { width: '100%', padding: 10, border: '1px solid #e5e7eb', borderRadius: 6, marginBottom: 16 };
-  const listStyle = { display: 'flex', flexWrap: 'wrap', gap: 16 };
-  // reducir el ancho base de las tarjetas para que no se expandan demasiado
-  const cardStyle = { flex: '1 1 260px', border: '1px solid #eaeaea', borderRadius: 8, padding: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.04)', background: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'stretch' };
-  // hacer la imagen más alta y usar contain para mostrar la bandera completa
-  const imgStyle = { width: '100%', height: 150, objectFit: 'contain', background: '#f8fafc', borderRadius: 6, marginBottom: 8, display: 'block' };
-  const countryTitle = { fontSize: 16, fontWeight: 600, margin: '8px 0' };
-  const smallText = { color: '#6b7280', fontSize: 13, margin: 0 };
 
   return (
     <div>
       <Header />
 
-      <main style={mainStyle}>
-        <h1 style={titleStyle}>Lista de Países</h1>
-
-        <input
-          type="text"
-          placeholder="Buscar país..."
-          style={inputStyle}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        {loading && <p>Cargando...</p>}
-
-        <div style={listStyle}>
-          {filteredCountries.map((country, index) => (
-            <div key={index} style={cardStyle}>
-              <img src={country.flags.png} alt="flag" style={imgStyle} />
-              <h2 style={countryTitle}>
-                {country.name?.common || "Sin nombre"}
-              </h2>
-
-              <p style={smallText}>
-                Capital: {country.capital?.[0] || "N/A"}
-              </p>
-
-              <p style={smallText}>
-                Moneda: {country.currencies
-                  ? Object.values(country.currencies)[0]?.name
-                  : "N/A"}
-              </p>
-            </div>
-          ))}
+      <main className="py-8">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-semibold">Lista de Países</h1>
+          <input
+            type="text"
+            placeholder="Buscar país..."
+            className="border rounded-md px-3 py-2 w-64 text-sm"
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
+
+        {loading ? (
+          <p className="text-sm text-slate-600">Cargando datos...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredCountries.map((country, index) => (
+              <article
+                key={country?.name?.common ?? index}
+                className="bg-white rounded-lg shadow-sm border p-4 flex flex-col"
+              >
+                <div className="flex-shrink-0 mb-3 h-40 bg-slate-50 rounded overflow-hidden flex items-center justify-center">
+                  <img
+                    src={country?.flags?.png}
+                    alt={country?.name?.common ?? 'bandera'}
+                    className="h-full object-contain"
+                  />
+                </div>
+
+                <h2 className="text-lg font-medium mb-1">{country?.name?.common ?? "Sin nombre"}</h2>
+
+                <p className="text-sm text-slate-600 mb-1">Capital: {country?.capital?.[0] ?? "N/A"}</p>
+
+                <p className="text-sm text-slate-600 mb-2">Moneda: {country?.currencies ? Object.values(country.currencies)[0]?.name : "N/A"}</p>
+
+                <div className="mt-auto text-sm text-slate-500">
+                  {Array.isArray(country?.latlng) && country.latlng.length >= 2 ? (
+                    <p>Ubicación: lat {country.latlng[0].toFixed(4)}, lng {country.latlng[1].toFixed(4)}</p>
+                  ) : (
+                    <p>Ubicación: N/D</p>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </main>
 
       <Footer />
