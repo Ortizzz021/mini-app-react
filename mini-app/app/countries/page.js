@@ -26,42 +26,50 @@ export default function Countries() {
     country.name.common.toLowerCase().includes(search.toLowerCase())
   );
 
+  const mainStyle = { padding: 24 };
+  const titleStyle = { fontSize: 20, fontWeight: 700, marginBottom: 12 };
+  const inputStyle = { width: '100%', padding: 10, border: '1px solid #e5e7eb', borderRadius: 6, marginBottom: 16 };
+  const listStyle = { display: 'flex', flexWrap: 'wrap', gap: 16 };
+  // reducir el ancho base de las tarjetas para que no se expandan demasiado
+  const cardStyle = { flex: '1 1 260px', border: '1px solid #eaeaea', borderRadius: 8, padding: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.04)', background: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'stretch' };
+  // hacer la imagen más alta y usar contain para mostrar la bandera completa
+  const imgStyle = { width: '100%', height: 150, objectFit: 'contain', background: '#f8fafc', borderRadius: 6, marginBottom: 8, display: 'block' };
+  const countryTitle = { fontSize: 16, fontWeight: 600, margin: '8px 0' };
+  const smallText = { color: '#6b7280', fontSize: 13, margin: 0 };
+
   return (
     <div>
       <Header />
 
-      <main className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Lista de Países</h1>
+      <main style={mainStyle}>
+        <h1 style={titleStyle}>Lista de Países</h1>
 
-        {/* Buscador */}
         <input
           type="text"
           placeholder="Buscar país..."
-          className="border p-2 mb-4 w-full"
+          style={inputStyle}
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {/* Loading */}
         {loading && <p>Cargando...</p>}
 
-        {/* Lista */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div style={listStyle}>
           {filteredCountries.map((country, index) => (
-            <div key={index} className="border p-4 rounded shadow">
-                <img src={country.flags.png} alt="flag" className="w-full h-32 object-cover" />
-                <h2>
+            <div key={index} style={cardStyle}>
+              <img src={country.flags.png} alt="flag" style={imgStyle} />
+              <h2 style={countryTitle}>
                 {country.name?.common || "Sin nombre"}
-                </h2>
+              </h2>
 
-                <p>
+              <p style={smallText}>
                 Capital: {country.capital?.[0] || "N/A"}
-                </p>
+              </p>
 
-                <p>
+              <p style={smallText}>
                 Moneda: {country.currencies
-                    ? Object.values(country.currencies)[0]?.name
-                    : "N/A"}
-                </p>
+                  ? Object.values(country.currencies)[0]?.name
+                  : "N/A"}
+              </p>
             </div>
           ))}
         </div>
