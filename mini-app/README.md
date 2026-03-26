@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GeoExplorer
 
-## Getting Started
+GeoExplorer es una aplicación minimalista construida con Next.js que permite explorar datos básicos de países: bandera, capital, moneda y ubicación geográfica (latitud/longitud). Está pensada para uso educativo y de referencia rápida.
 
-First, run the development server:
+## Características
+
+- Listado dinámico de países (fetch a https://restcountries.com).
+- Búsqueda por nombre de país en tiempo real.
+- Visualización de bandera, capital, moneda y coordenadas (lat,lng).
+- Diseño minimalista usando Tailwind CSS.
+- Rutas con la carpeta `app` de Next.js (Next 13+).
+
+## Requisitos
+
+- Node.js (v18+ recomendado)
+- npm (o yarn/pnpm)
+
+## Instalación
+
+1. Desde la raíz del proyecto ejecutar:
+
+```bash
+npm install
+```
+
+2. Iniciar el servidor de desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Abrir en el navegador: http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estructura importante
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/` – Rutas y componentes principales (Next.js App Router).
+- `components/` – Header, Footer y otros componentes reutilizables.
+- `app/globals.css` – Estilos globales y directivas de Tailwind.
+- `tailwind.config.js` – Configuración de Tailwind CSS.
 
-## Learn More
+## Notas de implementación
 
-To learn more about Next.js, take a look at the following resources:
+- Tailwind está configurado usando PostCSS. Si después de instalar dependencias no ves estilos, ejecuta `npm run dev` y revisa la salida en consola para identificar errores de PostCSS/Tailwind.
+- El listado de países se obtiene por fetch desde `https://restcountries.com/v3.1/all?fields=name,capital,currencies,flags,latlng` y se renderiza dinámicamente en el cliente usando `useEffect`, con manejo de estado `loading`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Desarrollo y pruebas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Para ver los cambios en caliente usa `npm run dev`.
+- Para construir para producción usa `npm run build` y luego `npm start`.
 
-## Deploy on Vercel
+## Despliegue
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Puedes desplegar en Vercel (soporte nativo para Next.js) o en cualquier plataforma que soporte Node.js. Asegúrate de construir (`npm run build`) antes de publicar.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Problemas comunes
+
+- Si Tailwind no aplica utilidades: verifica `postcss.config.mjs`, que `tailwindcss` y `@tailwindcss/postcss` estén instalados y que `tailwind.config.js` incluya las rutas correctas en `content`.
+- Si el puerto 3000 está ocupado Next propone otro puerto; cierra procesos en ejecución (`taskkill /PID <pid> /F` en Windows) o usa la URL que aparece en la consola.
+
+## Contribuir
+
+1. Haz un fork del repositorio.
+2. Crea una rama con tu cambio: `git checkout -b feature/mi-cambio`.
+3. Realiza commits claros y haz un PR.
+
+---
+
+Si quieres, puedo añadir secciones específicas (por ejemplo, cómo agregar tests, o instrucciones para Docker/Vercel).
