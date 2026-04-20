@@ -86,7 +86,7 @@ async function main() {
   // ─── 5. Ruta raíz de bienvenida ───
   app.get('/', (_req, res) => {
     res.json({
-      message: '🌍 GeoExplorer API — Clean Architecture',
+      message: 'GeoExplorer API — Clean Architecture',
       endpoints: {
         allCountries: 'GET /api/countries',
         searchByName: 'GET /api/countries?q=nombre',

@@ -1,68 +1,95 @@
-# GeoExplorer
+# GeoExplorer - FullStack Project
 
-GeoExplorer es una aplicación minimalista construida con Next.js que permite explorar datos básicos de países: bandera, capital, moneda y ubicación geográfica (latitud/longitud). Está pensada para uso educativo y de referencia rápida.
+GeoExplorer es una aplicación web integral diseñada para explorar información detallada de países. El proyecto ha sido reestructurado recientemente para separar las responsabilidades en una arquitectura de Frontend y Backend, permitiendo una mayor escalabilidad y mantenibilidad.
 
-## Características
+## 🏗️ Estructura del Proyecto
 
-- Listado dinámico de países (fetch a https://restcountries.com).
-- Búsqueda por nombre de país en tiempo real.
-- Visualización de bandera, capital, moneda y coordenadas (lat,lng).
-- Diseño minimalista usando Tailwind CSS.
-- Rutas con la carpeta `app` de Next.js (Next 13+).
+El repositorio está organizado de la siguiente manera:
 
-## Requisitos
-
-- Node.js (v18+ recomendado)
-- npm (o yarn/pnpm)
-
-## Instalación
-
-1. Desde la raíz del proyecto ejecutar:
-
-```bash
-npm install
+```text
+mini-app-react/
+├── backend/            # API REST (Node.js + Express + TypeScript)
+│   ├── src/
+│   │   ├── domain/         # Entidades y reglas de negocio
+│   │   ├── application/    # Casos de uso
+│   │   ├── infrastructure/ # Implementaciones técnicas (Repositorios, Persistencia)
+│   │   ├── interfaces/     # Adaptadores de entrada (Controladores, Rutas)
+│   │   └── index.ts        # Punto de entrada del servidor
+│   └── package.json
+└── frontend/           # Aplicación Web (Next.js + React + Tailwind CSS)
+    ├── app/                # Next.js App Router (Páginas y Layouts)
+    ├── components/         # Componentes React reutilizables
+    └── package.json
 ```
-
-2. Iniciar el servidor de desarrollo:
-
-```bash
-npm run dev
-```
-
-3. Abrir en el navegador: http://localhost:3000
-
-## Estructura importante
-
-- `app/` – Rutas y componentes principales (Next.js App Router).
-- `components/` – Header, Footer y otros componentes reutilizables.
-- `app/globals.css` – Estilos globales y directivas de Tailwind.
-- `tailwind.config.js` – Configuración de Tailwind CSS.
-
-## Notas de implementación
-
-- Tailwind está configurado usando PostCSS. Si después de instalar dependencias no ves estilos, ejecuta `npm run dev` y revisa la salida en consola para identificar errores de PostCSS/Tailwind.
-- El listado de países se obtiene por fetch desde `https://restcountries.com/v3.1/all?fields=name,capital,currencies,flags,latlng` y se renderiza dinámicamente en el cliente usando `useEffect`, con manejo de estado `loading`.
-
-## Desarrollo y pruebas
-
-- Para ver los cambios en caliente usa `npm run dev`.
-- Para construir para producción usa `npm run build` y luego `npm start`.
-
-## Despliegue
-
-Puedes desplegar en Vercel (soporte nativo para Next.js) o en cualquier plataforma que soporte Node.js. Asegúrate de construir (`npm run build`) antes de publicar.
-
-## Problemas comunes
-
-- Si Tailwind no aplica utilidades: verifica `postcss.config.mjs`, que `tailwindcss` y `@tailwindcss/postcss` estén instalados y que `tailwind.config.js` incluya las rutas correctas en `content`.
-- Si el puerto 3000 está ocupado Next propone otro puerto; cierra procesos en ejecución (`taskkill /PID <pid> /F` en Windows) o usa la URL que aparece en la consola.
-
-## Contribuir
-
-1. Haz un fork del repositorio.
-2. Crea una rama con tu cambio: `git checkout -b feature/mi-cambio`.
-3. Realiza commits claros y haz un PR.
 
 ---
 
-Si quieres, puedo añadir secciones específicas (por ejemplo, cómo agregar tests, o instrucciones para Docker/Vercel).
+## 🚀 Inicio Rápido
+
+Para ejecutar el proyecto completo localmente, sigue estos pasos:
+
+### 1. Requisitos Previos
+- **Node.js**: v18 o superior recomendado.
+- **npm**: v9 o superior.
+
+### 2. Configuración del Backend
+El backend proporciona la API de datos de países siguiendo principios de **Clean Architecture**.
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+*El servidor se iniciará en [http://localhost:4000](http://localhost:4000).*
+
+### 3. Configuración del Frontend
+El frontend es una aplicación moderna construida con **Next.js 15+** que consume los datos del backend.
+
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+*La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).*
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+### Backend
+- **TypeScript**: Para un desarrollo con tipado fuerte.
+- **Express**: Framework de servidor web.
+- **Clean Architecture**: Organización por capas (Domain, Application, Infrastructure, Interface).
+- **CORS**: Habilitado para comunicación segura con el frontend.
+
+### Frontend
+- **Next.js**: Framework de React con App Router.
+- **React 19**: Biblioteca de UI.
+- **Tailwind CSS 4**: Para un diseño responsivo y moderno.
+- **Fetch API**: Para la comunicación con el backend local.
+
+---
+
+## 📡 Endpoints de la API (Backend)
+
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/api/countries` | Obtiene el listado completo de países. |
+| `GET` | `/api/countries?q=nombre` | Busca países por nombre. |
+| `GET` | `/api/countries/:id` | Obtiene los detalles de un país específico por ID. |
+
+---
+
+## 📝 Notas de Implementación
+
+- **Separación de Capas**: El backend utiliza Clean Architecture para desacoplar la lógica de negocio de los detalles técnicos como la API externa de `restcountries.com`.
+- **Estilos**: El frontend utiliza Tailwind CSS para una estética premium y minimalista.
+- **React 19**: Se utilizan las últimas características de React para un rendimiento óptimo.
+
+---
+
+## 🤝 Contribuir
+
+1. Haz un fork del repositorio.
+2. Crea una rama con tu mejora: `git checkout -b feature/nueva-funcionalidad`.
+3. Envía tus cambios mediante un Pull Request explicativo.
