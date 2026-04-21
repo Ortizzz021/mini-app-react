@@ -1,21 +1,3 @@
-/**
- * ============================================================
- * CAPA: DOMAIN — Contrato/Interface del Repositorio
- * ============================================================
- *
- * Esta interface define el CONTRATO que cualquier repositorio
- * de países debe cumplir. Es una abstracción pura:
- *
- *   - NO dice CÓMO se obtienen los datos (eso es infrastructure)
- *   - Solo dice QUÉ operaciones están disponibles
- *
- * Gracias a este contrato podemos:
- *   1. Cambiar la fuente de datos sin tocar casos de uso
- *      (hoy es "en memoria", mañana podría ser MongoDB)
- *   2. Testear con mocks fácilmente
- *   3. Respetar el Principio de Inversión de Dependencias (DIP)
- */
-
 import { Country } from '../entities/Country';
 
 export interface CountryRepository {

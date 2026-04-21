@@ -4,10 +4,6 @@ import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-/**
- * URL base del backend Express con Clean Architecture.
- * El backend corre en el puerto 4000 y expone los endpoints REST.
- */
 const API_BASE = "http://localhost:4000/api";
 
 export default function Countries() {
@@ -16,15 +12,6 @@ export default function Countries() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    /**
-     * Ahora consumimos NUESTRO backend en lugar de la API externa directamente.
-     *
-     * Si hay texto de búsqueda, usamos el query param ?q=
-     *   → GET http://localhost:4000/api/countries?q=colombia
-     *
-     * Si no hay búsqueda, traemos todos:
-     *   → GET http://localhost:4000/api/countries
-     */
     const url = search
       ? `${API_BASE}/countries?q=${encodeURIComponent(search)}`
       : `${API_BASE}/countries`;
@@ -39,7 +26,7 @@ export default function Countries() {
         console.error("Error al conectar con el backend:", err);
         setLoading(false);
       });
-  }, [search]); // Se re-ejecuta cada vez que cambia el texto de búsqueda
+  }, [search]);
 
   return (
     <div>
@@ -61,11 +48,6 @@ export default function Countries() {
           <p className="text-sm text-slate-600">Cargando datos...</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* 
-              Los datos ya vienen normalizados desde nuestro backend.
-              El formato es: { id, name, capital, currency, flagUrl, latlng }
-              Ya no hay que hacer country.name.common ni country.flags.png
-            */}
             {countries.map((country) => (
               <article
                 key={country.id}
